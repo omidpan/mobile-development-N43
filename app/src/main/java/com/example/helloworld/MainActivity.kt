@@ -7,11 +7,14 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.helloworld.ui.theme.HelloWorldTheme
+import androidx.compose.foundation.content.MediaType.Companion.Text
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.material3.Text
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,7 +23,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             HelloWorldTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    MyAlignment(modifier = Modifier.padding(innerPadding))
+                    Greeting(name ="Android", Modifier.padding(innerPadding))
                 }
             }
         }
@@ -28,8 +31,17 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun MyAlignment(modifier: Modifier= Modifier){
-
+fun Greeting(name: String, modifier: Modifier = Modifier) {
+   Column{
+       Text(
+           text = "Hello!",
+           modifier = modifier
+       )
+       Text(
+           text = "$name!",
+           modifier = modifier
+       )
+   }
 }
 @Preview(showBackground = true,
     showSystemUi = true,
@@ -37,6 +49,6 @@ fun MyAlignment(modifier: Modifier= Modifier){
 @Composable
 fun GreetingPreview() {
     HelloWorldTheme {
-        MyAlignment()
+        Greeting("Android")
     }
 }
