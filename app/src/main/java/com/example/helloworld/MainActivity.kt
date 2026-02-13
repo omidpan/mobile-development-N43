@@ -20,10 +20,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             HelloWorldTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                    MyAlignment(modifier = Modifier.padding(innerPadding))
                 }
             }
         }
@@ -31,17 +28,15 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+fun MyAlignment(modifier: Modifier= Modifier){
 
-@Preview(showBackground = true)
+}
+@Preview(showBackground = true,
+    showSystemUi = true,
+    device = "spec:width=100dp,height=100dp,dpi=300")
 @Composable
 fun GreetingPreview() {
     HelloWorldTheme {
-        Greeting("Android")
+        MyAlignment()
     }
 }
