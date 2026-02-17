@@ -4,14 +4,20 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.example.helloworld.ui.theme.HelloWorldTheme
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,10 +26,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             HelloWorldTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                    CustomButton(modifier = Modifier.padding(innerPadding) )
                 }
             }
         }
@@ -31,17 +34,26 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
+fun CustomButton(modifier: Modifier = Modifier) {
     Text(
-        text = "Hello $name!",
-        modifier = modifier
+        text = "Click Me",
+        modifier = Modifier
+            .padding(16.dp)
+//            .background(Color.Yellow)
+            .background(com.example.helloworld.ui.theme.CustomYellow)
+//            .background(colorResource(id = R.color.my_custom_color))
+            .clickable { println("Button Clicked!") }
+            .padding(8.dp)
     )
 }
 
-@Preview(showBackground = true)
+
+
+@Preview(showBackground = true, showSystemUi = true,
+    device = "spec:width=1400dp,height=300dp,dpi=240")
 @Composable
 fun GreetingPreview() {
     HelloWorldTheme {
-        Greeting("Android")
+        CustomButton()
     }
 }
