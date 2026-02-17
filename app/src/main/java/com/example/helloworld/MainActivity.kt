@@ -5,14 +5,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,7 +18,6 @@ import androidx.compose.ui.unit.dp
 import com.example.helloworld.ui.theme.HelloWorldTheme
 
 
-
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,44 +25,25 @@ class MainActivity : ComponentActivity() {
         setContent {
             HelloWorldTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                   Greeting( name="Android",   Modifier.padding(innerPadding))
+                   CustomButton(modifier = Modifier.padding(innerPadding) )
                 }
             }
         }
     }
 }
-
-//@Composable
-//fun Greeting(name: String, modifier: Modifier = Modifier) {
-//    Text(
-//        text = "Hello $name!",
-//        modifier = modifier
-//    )
-//}
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Column {
-        Box(
-            modifier
-                .background(Color.Red)
-                .height(200.dp)
-                .width(300.dp)
-        ) {
-            Row {
-                Box(
-                    modifier
-                        .size(50.dp)
-                        .background(Color.Blue)
-                )
-                Column {
-                    Text(text = "Hello!")
-                    Text(text = "$name!")
-                }
-            }
-        }
-    }
+fun CustomButton(modifier: Modifier = Modifier) {
+    Text(
+        text = "Click Me",
+        modifier = Modifier
+            .padding(16.dp)
+            .background(Color.Yellow)
+            .clickable { println("Button Clicked!") }
+            .padding(8.dp)
+    )
 }
+
 
 
 @Preview(showBackground = true, showSystemUi = true,
@@ -76,6 +51,6 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 @Composable
 fun GreetingPreview() {
     HelloWorldTheme {
-        Greeting("Android")
+        CustomButton()
     }
 }
