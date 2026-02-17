@@ -37,10 +37,10 @@ fun CustomButton(modifier: Modifier = Modifier) {
     Text(
         text = "Click Me",
         modifier = Modifier
-            .padding(16.dp)
+            .padding(20.dp)
             .background(Color.Yellow)
             .clickable { println("Button Clicked!") }
-            .padding(8.dp)
+
     )
 }
 
