@@ -60,7 +60,7 @@ class MainActivity : ComponentActivity() {
             HelloWorldTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
 //                    //01 image
-//                    MyUIComponentsImage(Modifier.padding(innerPadding))
+                    MyUIComponentsImage(Modifier.padding(innerPadding))
 
 //                    // 02 Toggle image
 //                    ChangeImageWithButton(Modifier.padding(innerPadding))
@@ -82,8 +82,7 @@ class MainActivity : ComponentActivity() {
 //                    SwitchExample()
 
 //                    //08 DropDown example
-
-                    DropDownExample()
+//                    DropDownExample()
 
                 }
             }
