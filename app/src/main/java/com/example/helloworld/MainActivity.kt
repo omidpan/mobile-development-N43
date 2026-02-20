@@ -60,7 +60,7 @@ class MainActivity : ComponentActivity() {
             HelloWorldTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
 //                    //01 image
-                    MyUIComponentsImage(Modifier.padding(innerPadding))
+//                    MyUIComponentsImage(Modifier.padding(innerPadding))
 
 //                    // 02 Toggle image
 //                    ChangeImageWithButton(Modifier.padding(innerPadding))
@@ -73,10 +73,10 @@ class MainActivity : ComponentActivity() {
 //                    UIExampleImageTextFieldButton(Modifier.padding(innerPadding))
 
 //                     //05 Check box
-//                    Checkbox()
+//                    CheckboxExample()
 
 //                    //06 RadioButtons
-//                    RadioButtons()
+//                    RadioButtonsExample()
 
 ////                    //07 switch
 //                    SwitchExample()
@@ -113,6 +113,7 @@ fun ChangeImageWithButton(modifier: Modifier = Modifier) {
     Column(modifier = modifier) {
 
         Button(
+            colors=ButtonDefaults.buttonColors(Color.Blue),
             onClick = {
                 myImage.value =
                     if (myImage.value == R.drawable.first_image)
@@ -137,7 +138,7 @@ fun ShowTextField(modifier: Modifier = Modifier) {
     /**
      * Better code to move text field in the center of screen
      */
-    var textFieldValue = remember { mutableStateOf("Test me") }
+    var textFieldValue = remember { mutableStateOf("Type Here") }
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center)
     {
         TextField(
@@ -159,6 +160,7 @@ fun ShowTextField(modifier: Modifier = Modifier) {
 //04 combine
 @Composable
 fun UIExampleImageTextFieldButton(modifier: Modifier = Modifier) {
+    //add default state to start the application
     val myButtonBackgroundColor = remember { mutableStateOf(Color.Red) }
     val myButtonText = remember { mutableStateOf("Do Your Magic") }
     val myButtonTextColor = remember { mutableStateOf(Color.White) }
@@ -283,7 +285,7 @@ fun CheckboxExample(modifier: Modifier = Modifier) {
                 .padding(vertical = 15.dp),
             textAlign = TextAlign.Center
         )
-        Spacer(modifier = Modifier.height(50.dp))
+        Spacer(modifier = Modifier.height(30.dp))
         Column {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Checkbox(
@@ -300,7 +302,7 @@ fun CheckboxExample(modifier: Modifier = Modifier) {
                 )
                 Text("Male", fontSize = 20.sp, color = Color.White)
             }
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(30.dp))
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Checkbox(
                     checked = femaleChecked.value,
@@ -366,9 +368,11 @@ fun RadioButtonsExample(modifier: Modifier = Modifier) {
 //07 Switch
 @Composable
 fun SwitchExample(modifier: Modifier = Modifier) {
+    //default state for toggle switch
     val switchState = remember { mutableStateOf(false) }
     val myText = remember { mutableStateOf("The image is visible") }
     val myAlphaValue = remember { mutableStateOf(1F) }
+    //create a column to add UI Components to them
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -469,7 +473,12 @@ fun DropDownExample(modifier: Modifier = Modifier) {
 @Composable
 fun Preview() {
     HelloWorldTheme {
-//        Checkbox()
-        RadioButtonsExample()
+//        MyUIComponentsImage()
+//        ChangeImageWithButton()
+//        UIExampleImageTextFieldButton()
+//            CheckboxExample()
+//        RadioButtonsExample()
+//        SwitchExample()
+        DropDownExample()
     }
 }
