@@ -4,24 +4,18 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Share
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExtendedFloatingActionButton
-import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
@@ -37,7 +31,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.userinteraction.ui.theme.HelloWorldTheme
 
@@ -48,7 +41,7 @@ class UserInteraction : ComponentActivity() {
         setContent {
             HelloWorldTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    TopAppBarExample(modifier = Modifier.padding(innerPadding)
+                    TopAppBarExampleWithDropdownMenu(modifier = Modifier.padding(innerPadding)
                     )
                 }
             }
@@ -60,8 +53,10 @@ Scaffold
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopAppBarExample(modifier: Modifier = Modifier) {
+fun TopAppBarExampleWithDropdownMenu(modifier: Modifier = Modifier) {
     val actionText = remember { mutableStateOf("Actions will be shown here") } // Tracks Clicked Action
+    val menuStatus = remember { mutableStateOf(false) }
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -84,8 +79,28 @@ fun TopAppBarExample(modifier: Modifier = Modifier) {
                     IconButton(onClick = { actionText.value = "Search Icon Clicked" }) {
                         Icon(imageVector = Icons.Filled.Search, contentDescription = "Search Icon", tint = Color.White)
                     }
-                    IconButton(onClick = { actionText.value = "More Icon Clicked" }) {
+                    // More Icon with Dropdown Menu
+                    IconButton(onClick = { menuStatus.value = true }) {
                         Icon(imageVector = Icons.Filled.MoreVert, contentDescription = "More Icon", tint = Color.White)
+                    }
+                    DropdownMenu(
+                        expanded = menuStatus.value,
+                        onDismissRequest = { menuStatus.value = false }
+                    ) {
+                        DropdownMenuItem(
+                            text = { Text("Settings") },
+                            onClick = {
+                                menuStatus.value = false
+                                actionText.value = "Settings Clicked"
+                            }
+                        )
+                        DropdownMenuItem(
+                            text = { Text("Logout") },
+                            onClick = {
+                                menuStatus.value = false
+                                actionText.value = "Logout Clicked"
+                            }
+                        )
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -113,6 +128,6 @@ fun TopAppBarExample(modifier: Modifier = Modifier) {
 @Composable
 fun GreetingPreview() {
     HelloWorldTheme {
-        TopAppBarExample()
+        TopAppBarExampleWithDropdownMenu()
     }
 }
