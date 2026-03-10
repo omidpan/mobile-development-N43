@@ -70,10 +70,10 @@ fun DialogExample(modifier: Modifier = Modifier) {
                         Icon(
                             imageVector = Icons.Outlined.Warning,
                             contentDescription = "Warning Icon",
-                            tint = Color.Red
+                            tint = Color.Yellow
                         )
                     },
-                    title = { Text("Dialog Message", color = Color.Red, fontSize = 20.sp) },
+                    title = { Text("Dialog Message", color = Color.Yellow, fontSize = 20.sp) },
                     text = {
                         Text(
                             "Do you want to change the text color?",
