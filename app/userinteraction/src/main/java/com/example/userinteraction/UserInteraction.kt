@@ -1,29 +1,41 @@
 package com.example.userinteraction
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Warning
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Button
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Share
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExtendedFloatingActionButton
+import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -36,20 +48,56 @@ class UserInteraction : ComponentActivity() {
         setContent {
             HelloWorldTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    DialogExample(modifier = Modifier.padding(innerPadding)
+                    TopAppBarExample(modifier = Modifier.padding(innerPadding)
                     )
                 }
             }
         }
     }
 }
-
+/*
+Scaffold
+ */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DialogExample(modifier: Modifier = Modifier) {
-    val dialogStatus = remember { mutableStateOf(false) } // Manages Dialog visibility
-    val buttonTextColor = remember { mutableStateOf(Color.White) } // Tracks button color
-    val context = LocalContext.current // Gets Android Context for Toast message
-    Scaffold { contentPadding ->
+fun TopAppBarExample(modifier: Modifier = Modifier) {
+    val actionText = remember { mutableStateOf("Actions will be shown here") } // Tracks Clicked Action
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = {
+                    Column {
+                        Text(text = stringResource(id = R.string.app_name), color = Color.White, fontSize = 20.sp)
+                        Text(text = "Subtitle", color = Color.White, fontSize = 16.sp)
+                    }
+                },
+                navigationIcon = {
+                    IconButton(onClick = { actionText.value = "Navigation Icon Clicked" }) {
+                        Icon(imageVector = Icons.Filled.Menu, contentDescription = "Menu Icon", tint =
+                            Color.White)
+                    }
+                },
+                actions = {
+                    IconButton(onClick = { actionText.value = "Share Icon Clicked" }) {
+                        Icon(imageVector = Icons.Filled.Share, contentDescription = "Share Icon", tint = Color.White)
+                    }
+                    IconButton(onClick = { actionText.value = "Search Icon Clicked" }) {
+                        Icon(imageVector = Icons.Filled.Search, contentDescription = "Search Icon", tint = Color.White)
+                    }
+                    IconButton(onClick = { actionText.value = "More Icon Clicked" }) {
+                        Icon(imageVector = Icons.Filled.MoreVert, contentDescription = "More Icon", tint = Color.White)
+                    }
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = colorResource(id = R.color.purple_500),
+                    scrolledContainerColor = colorResource(id = R.color.purple_700),
+                    navigationIconContentColor = Color.White,
+                    titleContentColor = Color.White,
+                    actionIconContentColor = Color.White
+                )
+            )
+        }
+    ) { contentPadding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -57,71 +105,14 @@ fun DialogExample(modifier: Modifier = Modifier) {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Button(onClick = { dialogStatus.value = true }) {
-                Text("Show Dialog Message", color = buttonTextColor.value)
-            }
-            // Show Dialog when dialogStatus is TRUE
-            if (dialogStatus.value) {
-                AlertDialog(
-                    onDismissRequest = {
-                        dialogStatus.value = true
-                    }, // Prevent closing on background click
-                    icon = {
-                        Icon(
-                            imageVector = Icons.Outlined.Warning,
-                            contentDescription = "Warning Icon",
-                            tint = Color.Yellow
-                        )
-                    },
-                    title = { Text("Dialog Message", color = Color.Yellow, fontSize = 20.sp) },
-                    text = {
-                        Text(
-                            "Do you want to change the text color?",
-                            color = Color.DarkGray,
-                            fontSize = 18.sp
-                        )
-                    },
-                    containerColor = Color.LightGray, // Background color of Dialog
-                    shape = RoundedCornerShape(10.dp), // Rounded corners
-                    confirmButton = {
-                        Button(
-                            onClick = {
-                                dialogStatus.value = false // Close Dialog
-                                buttonTextColor.value = Color.Red // Change button text color
-                                Toast.makeText(
-                                    context,
-                                    "Confirm button clicked",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
-                        ) {
-                            Text("Yes", color = Color.Green, fontSize = 18.sp)
-                        }
-                    },
-                    dismissButton = {
-                        Button(
-                            onClick = {
-                                dialogStatus.value = false // Close Dialog
-                                Toast.makeText(
-                                    context,
-                                    "Dismiss button clicked",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
-                        ) {
-                            Text("No", color = Color.Red, fontSize = 18.sp)
-                        }
-                    }
-                )
-            }
+            Text(text = actionText.value, color = Color.Black, fontSize = 18.sp)
         }
     }
 }
-
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     HelloWorldTheme {
-        DialogExample()
+        TopAppBarExample()
     }
 }
