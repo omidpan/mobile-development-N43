@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "HelloWorld"
 include(":app")
-include(":uicomponents")
+include(":app:userinteraction")
