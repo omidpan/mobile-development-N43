@@ -18,6 +18,7 @@ import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MenuItemColors
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -99,7 +100,14 @@ fun TopAppBarExampleWithDropdownMenu(modifier: Modifier = Modifier) {
                             onClick = {
                                 menuStatus.value = false
                                 actionText.value = "Logout Clicked"
-                            }
+                            },
+                            colors = MenuItemColors(textColor = Color.Blue,
+                                leadingIconColor= Color.Blue,
+                                trailingIconColor= Color.Blue,
+                                disabledTextColor= Color.Blue,
+                                disabledLeadingIconColor= Color.Blue,
+                                disabledTrailingIconColor= Color.Blue
+                                )
                         )
                     }
                 },
